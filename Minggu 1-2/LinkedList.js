@@ -66,7 +66,9 @@ class LinkedList {
 
     get(index) {
         let current = this.first;
-        if (index > this.length) {
+        if (typeof (index) != 'number') {
+            throw new Error("Index must be a number");
+        } else if (index > this.length || index < 0) {
             throw new Error("IndexOutOfBound");
         } else {
             for (let i = 0; i < index; i++) {
@@ -77,7 +79,9 @@ class LinkedList {
     }
 
     swap(index1, index2) {
-        if (index1 > this.length || index2 > this.length) {
+        if (typeof (index1) != 'number' || typeof (index2) != 'number') {
+            throw new Error("Index must be a number");
+        } else if (index1 > this.length || index2 > this.length) {
             throw new Error("IndexOutOfBound");
         } else {
             // let current1 = this.first;
