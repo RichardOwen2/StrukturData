@@ -64,17 +64,6 @@ class LinkedList {
         this.length--;
     }
 
-    swap(index1, index2) {
-        if (index1 > this.length || index2 > this.length) {
-            throw new Error("IndexOutOfBound");
-        } else {
-            let current1 = this.first;
-            for (let i = 0; i < index1 - 1; i++) {
-                current1 = current1.getNext();
-            }
-        }
-    }
-
     get(index) {
         let current = this.first;
         if (index > this.length) {
@@ -83,7 +72,31 @@ class LinkedList {
             for (let i = 0; i < index; i++) {
                 current = current.getNext();
             }
-            console.log(current);
+            return current;
+        }
+    }
+
+    swap(index1, index2) {
+        if (index1 > this.length || index2 > this.length) {
+            throw new Error("IndexOutOfBound");
+        } else {
+            // let current1 = this.first;
+            // let current2 = this.first;
+
+            // for (let i = 0; i < this.length; i++) {
+            //     if (i < index1) current1 = current1.getNext();
+            //     if (i < index2) current2 = current2.getNext();
+            // }
+
+            const current1 = this.get(index1);
+            const current2 = this.get(index2);
+
+            this.remove(index1);
+            this.insert(current2.getValue(),index1);
+
+            this.remove(index2);
+            this.insert(current1.getValue(),index2);
+            
         }
     }
 
@@ -113,18 +126,20 @@ class LinkedList {
 
 try {
     const data = new LinkedList();
-    data.push(0);
-    data.push(1);
-    data.push(2);
-    data.push(3);
-    data.push(4);
-    data.push(5);
-    data.push(6);
-    data.push(7);
-    data.push(8);
+    data.add(0);
+    data.add(1);
+    data.add(2);
+    data.add(3);
+    data.add(4);
+    data.add(5);
+    data.add(6);
+    data.add(7);
+    data.add(8);
 
-    // data.pop();
-    // data.pop(2);
+    // data.insert(5,3);
+    // data.remove(4);
+    // console.log(data.get(3));
+    data.swap(2,5);
     // data.showNode();
     // data.showValue();
 
