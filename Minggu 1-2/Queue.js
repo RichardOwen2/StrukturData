@@ -45,7 +45,7 @@ class Queue {
         if (typeof (index) != 'number') {
             throw new Error("Index must be a number");
         } else if (this.hasPop() || index > this.length || index < 0) {
-            throw new Error("IndexOutOfBound");
+            throw new Error("Index is more than data length");
         } else if (index == 0) {
             this.first = this.first.getNext();
         } else {

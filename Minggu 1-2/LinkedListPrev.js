@@ -6,9 +6,17 @@ class Node {
     setNext(next) {
         this.next = next;
     }
+    
+    setPrev(prev) {
+        this.prev = prev;
+    }
 
     getNext() {
         return this.next;
+    }
+
+    getPrev() {
+        return this.prev;
     }
 
     getValue() {
@@ -19,6 +27,7 @@ class Node {
 class LinkedList {
     constructor() {
         this.first = null;
+        this.last = null;
         this.length = 0;
     }
 
@@ -26,48 +35,54 @@ class LinkedList {
         const node = new Node(value);
         if (this.first == null) {
             this.first = node;
+            this.last = node;
         } else {
-            let current = this.first;
-            while (current.getNext()) {
-                current = current.getNext();
-            }
-            current.setNext(node);
+            node.setPrev(this.last);
+            this.last.setNext(node);
+            this.last = node;
         }
         this.length++;
     }
 
     insert(value, index) {
         const node = new Node(value);
-        let current = this.first;
         if (typeof (index) != 'number') {
             throw new Error("Index must be a number");
+        } else if (index > this.length || index < 0) {
+            throw new Error("Index is more than data length"); 
         } else if (index == 0 && this.length == 0) {
             this.first = node;
-        }else if (index > this.length || index < 0) {
-            throw new Error("Index is more than data length"); 
+            this.last = node;
+        } else if (index == 0) {
+            this.first.setPrev(node);
+            node.setNext(this.first);
+            this.first = node;
         } else {
-            for (let i = 0; i < index - 1; i++) {
-                current = current.getNext();
-            }
-            node.setNext(current.getNext());
-            current.setNext(node);
+            let current = this.get(index);
+            let currentPrev = current.getPrev();
+            node.setPrev(currentPrev);
+            node.setNext(current);
+            currentPrev.setNext(node);
+            current.setPrev(node);
         }
         this.length++;
     }
 
     remove(index) {
-        let current = this.first;
         if (typeof (index) != 'number') {
             throw new Error("Index must be a number");
         } else if (index > this.length || index < 0) {
             throw new Error("Index is more than data length");
         } else if (index == 0) {
             this.first = this.first.getNext();
+            this.first.setPrev(null);
         } else {
-            for (let i = 0; i < index - 1; i++) {
-                current = current.getNext();
-            }
-            (index < this.length - 1) ? current.setNext(current.getNext().getNext()): current.setNext(null);
+            let current = this.get(index);
+            let currentPrev = current.getPrev();
+            let currentNext = current.getNext();
+
+            current.getPrev().setNext(current.getNext());
+            currentNext.setPrev(currentPrev);
         }
         this.length--;
     }
@@ -95,12 +110,38 @@ class LinkedList {
             const current1 = this.get(index1);
             const current2 = this.get(index2);
 
-            this.remove(index1);
-            this.insert(current2.getValue(),index1);
+            if (current1 === this.first) {
+                this.first = current2;
+            } else if (current2 === this.first) {
+                this.first = current1;
+            }
+            if (current1 === this.last) {
+                this.last = current2;
+            } else if (current2 === this.last) {
+                this.last = current1;
+            }
 
-            this.remove(index2);
-            this.insert(current1.getValue(),index2);
-            
+            const current1Next = current1.getNext();
+            current1.setNext(current2.getNext());
+            current2.setNext(current1Next);
+
+            if (current1.getNext()) {
+                current1.getNext().setPrev(current1);
+            }
+            if (current2.getNext()) {
+                current2.getNext().setPrev(current2);
+            }
+
+            const current1Prev = current1.getPrev();
+            current1.setPrev(current2.getPrev());
+            current2.setPrev(current1Prev);
+
+            if (current1.getPrev()) {
+                current1.getPrev().setNext(current1);
+            }
+            if (current2.getNext()) {
+                current2.getPrev().setNext(current2);
+            }
         }
     }
 
@@ -109,6 +150,7 @@ class LinkedList {
         for (let i = 0; i < this.length; i++) {
             console.log(
                 `Index = ${i}, 
+            \nPrev = ${(current.getPrev()) ? current.getPrev().getValue() : undefined}
             \nValue = ${current.getValue()}, 
             \nNext = ${(current.getNext()) ? current.getNext().getValue() : undefined}`
             );
@@ -136,14 +178,11 @@ try {
     data.add(3);
     data.add(4);
     data.add(5);
-    data.add(6);
-    data.add(7);
-    data.add(8);
 
-    // data.insert(5,3);
+    data.insert(8,3);
     // data.remove(4);
     // console.log(data.get(3));
-    // data.swap(0,1);
+    // data.swap(1,2);
     data.showNode();
     // data.showValue();
 
