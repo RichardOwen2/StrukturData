@@ -77,7 +77,7 @@ class LinkedList {
         if (typeof (index) != 'number') {
             throw new Error("Index must be a number");
         } else if (index > this.length || index < 0) {
-            throw new Error("Index is more than data length");
+            throw new Error("Index Out Of Bound");
         } else {
             for (let i = 0; i < index; i++) {
                 current = current.getNext();
@@ -141,9 +141,9 @@ try {
     data.add(8);
 
     // data.insert(5,3);
-    // data.remove(4);
+    // data.remove(-1);
     // console.log(data.get(3));
-    // data.swap(0,1);
+    // data.swap(2,1);
     data.showNode();
     // data.showValue();
 

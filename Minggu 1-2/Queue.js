@@ -93,9 +93,9 @@ try {
     data.push(7);
     data.push(8);
 
-    // data.pop();
     // data.pop(2);
-    // data.showNode();
+    // data.pop(2);
+    data.showNode();
     // data.showValue();
 
     console.log(data);

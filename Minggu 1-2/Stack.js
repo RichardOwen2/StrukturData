@@ -92,7 +92,7 @@ try {
 
     // data.pop();
     // data.pop(2);
-    // data.showNode();
+    data.showNode();
     // data.showValue();
 
     console.log(data);
