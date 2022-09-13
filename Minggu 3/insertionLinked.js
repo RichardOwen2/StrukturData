@@ -89,7 +89,7 @@ class LinkedList {
         let current = this.first;
         let fullValue = '';
         for (let i = 0; i < this.length; i++) {
-            fullValue += current.getValue();
+            fullValue += ' ' + current.getValue();
             console.log(fullValue);
             current = current.getNext();
         }
@@ -122,23 +122,40 @@ class LinkedList {
         }
         this.first = sorted;
     }
+
+    changeType(type) {
+        if (type == 'integer') {
+            let current = this.first;
+            current.getValue() = parseInt(current.getValue());
+            while (current.getNext()) {
+                current.getValue() = parseInt(current.getValue());
+            }
+        } else if (type == 'string') {
+            let current = this.first;
+            current.getValue() = String(current.getValue());
+            while (current.getNext()) {
+                current.getValue() = String(current.getValue());
+            }
+        }
+    }
 }
 
 try {
     const data = new LinkedList();
-    data.push(0);
-    data.push(-1);
-    data.push(1);
-    data.push(-2);
-    data.push(2);
-    data.push(-3);
-    data.push(3);
-    data.push(-4);
-    data.push(4);
-    data.push(-5);
+    data.push("0");
+    data.push("-1");
+    data.push("1");
+    data.push("-2");
+    data.push("2");
+    data.push("-3");
+    data.push("3");
+    data.push("-4");
+    data.push("4");
+    data.push("-5");
     data.insertionSort();
 
-    // data.showValue()
+    data.changeType('integer');
+    data.showValue()
 
     console.log(data);
 } catch (e) {
