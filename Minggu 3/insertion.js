@@ -3,15 +3,9 @@ const arraySample = "0,-1,1,-2,2,-3,3,-4,4,-5";
 function processData(input) {
     let arraySort;
     
-    for (data of input.split(",")) {
-        arraySort.push(parseInt(data));
-    }
-
-    // let arraySort = input.split(",");
-
-    // for (let i = 0; i < arraySort.length; i++) {
-    //     arraySort[i] = parseInt(arraySort[i]);
-    // } 
+    for (let i = 0; i < arraySort.length; i++) {
+        arraySort[i] = parseInt(arraySort[i]);
+    } 
 
     for (let i = 1; i < arraySort.length; i++) {
         let temp = arraySort[i];
