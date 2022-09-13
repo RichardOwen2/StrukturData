@@ -109,7 +109,7 @@ class LinkedList {
             } else {
                 let temp = sorted;
 
-                while (temp.next != null &&
+                while (temp.getNext() != null &&
                         temp.getNext().getValue() < compareNode.getValue())
                 {
                 temp = temp.getNext();
