@@ -1,7 +1,7 @@
 const arraySample = "0,-1,1,-2,2,-3,3,-4,4,-5";
 
 function processData(input) {
-    let arraySort;
+    let arraySort = input.split(",");
     
     for (let i = 0; i < arraySort.length; i++) {
         arraySort[i] = parseInt(arraySort[i]);

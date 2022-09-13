@@ -94,33 +94,51 @@ class LinkedList {
             current = current.getNext();
         }
     }
-}
 
-function processData(input) {
+    insertionSort() {
+        let sorted = null;
+        let current = this.first;
     
-    for (let i = 1; i < input.length; i++) {
-        let temp = arraySort[i];
-        let j = i-1; 
-        while ((j > -1) && (temp < arraySort[j])) {
-            arraySort[j+1] = arraySort[j];
-            j--;
+        while (current != null) {
+            let next = current.getNext();
+
+            let compareNode = current;
+            if (sorted == null || sorted.val >= compareNode.getValue()) {
+                compareNode.setNext(sorted);
+                sorted = compareNode;
+            } else {
+                let temp = sorted;
+
+                while (temp.next != null &&
+                        temp.getNext().getValue() < compareNode.getValue())
+                {
+                temp = temp.getNext();
+                }
+                compareNode.setNext(temp.getNext());
+                temp.setNext(compareNode);
+            }
+
+            current = next;
         }
-        arraySort[j+1] = temp;
+        this.first = sorted;
     }
-    return arraySort.join();
 }
 
 try {
     const data = new LinkedList();
-    data.add(0);
-    data.add(1);
-    data.add(2);
-    data.add(3);
-    data.add(4);
-    data.add(5);
-    data.add(6);
-    data.add(7);
-    data.add(8);
+    data.push(0);
+    data.push(-1);
+    data.push(1);
+    data.push(-2);
+    data.push(2);
+    data.push(-3);
+    data.push(3);
+    data.push(-4);
+    data.push(4);
+    data.push(-5);
+    data.insertionSort();
+
+    // data.showValue()
 
     console.log(data);
 } catch (e) {
