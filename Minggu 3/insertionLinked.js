@@ -103,7 +103,7 @@ class LinkedList {
             let next = current.getNext();
 
             let compareNode = current;
-            if (sorted == null || sorted.val >= compareNode.getValue()) {
+            if (sorted == null || sorted.getValue() >= compareNode.getValue()) {
                 compareNode.setNext(sorted);
                 sorted = compareNode;
             } else {
