@@ -90,9 +90,9 @@ class LinkedList {
         let fullValue = '';
         for (let i = 0; i < this.length; i++) {
             fullValue += ' ' + current.getValue();
-            console.log(fullValue);
             current = current.getNext();
         }
+        console.log(fullValue);
     }
 
     insertionSort() {
@@ -103,17 +103,22 @@ class LinkedList {
             let next = current.getNext();
 
             let compareNode = current;
-            if (sorted == null || sorted.val >= compareNode.getValue()) {
+            if (sorted == null || sorted.getValue() >= compareNode.getValue()) {
                 compareNode.setNext(sorted);
                 sorted = compareNode;
+                console.log("----")
+                console.log("c",compareNode.getValue())
+                console.log("s",sorted.getValue())
             } else {
                 let temp = sorted;
-
-                while (temp.next != null &&
-                        temp.getNext().getValue() < compareNode.getValue())
-                {
-                temp = temp.getNext();
+                console.log("----")
+                console.log("t",temp.getNext().getValue())
+                console.log("c",compareNode.getValue())
+                while (temp.getNext() != null && temp.getNext().getValue() < compareNode.getValue()) {
+                    temp = temp.getNext();
+                    console.log(temp.getValue())
                 }
+                console.log("----")
                 compareNode.setNext(temp.getNext());
                 temp.setNext(compareNode);
             }
@@ -122,42 +127,30 @@ class LinkedList {
         }
         this.first = sorted;
     }
-
-    changeType(type) {
-        if (type == 'integer') {
-            let current = this.first;
-            current.getValue() = parseInt(current.getValue());
-            while (current.getNext()) {
-                current.getValue() = parseInt(current.getValue());
-            }
-        } else if (type == 'string') {
-            let current = this.first;
-            current.getValue() = String(current.getValue());
-            while (current.getNext()) {
-                current.getValue() = String(current.getValue());
-            }
-        }
-    }
 }
 
+function main(sample) {
+    sample = sample.split(",");
+    let sorted = new LinkedList();
+
+    for (data of sample) {
+        sorted.push(parseInt(data));
+    }
+
+    sorted.insertionSort();
+
+    // return sorted.showValue();
+    return sorted;
+}
+
+
 try {
-    const data = new LinkedList();
-    data.push("0");
-    data.push("-1");
-    data.push("1");
-    data.push("-2");
-    data.push("2");
-    data.push("-3");
-    data.push("3");
-    data.push("-4");
-    data.push("4");
-    data.push("-5");
-    data.insertionSort();
+    const stringSample = "8,1,-2,2,-3,3,-4,4,-5,5";
 
-    data.changeType('integer');
-    data.showValue()
+    const stringSorted = main(stringSample);
+    stringSorted.showValue();
 
-    console.log(data);
+    //stringSorted.showNode();
 } catch (e) {
     console.error(e);
 }
