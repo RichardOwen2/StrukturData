@@ -145,7 +145,7 @@ function main(sample) {
 
 
 try {
-    const stringSample = "8,1,-2,2,-3,3,-4,4,-5,5";
+    const stringSample = "8,1,-2,2,4,3,-4,0,-3,-5,5";
 
     const stringSorted = main(stringSample);
     stringSorted.showValue();

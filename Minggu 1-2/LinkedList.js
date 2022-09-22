@@ -72,6 +72,74 @@ class LinkedList {
         this.length--;
     }
 
+    removeByValue(value) {
+        let current = this.first;
+
+        if (current == null) {
+            return;
+        } else if (current.getValue() === value) {
+            this.first = this.first.getNext();
+            this.length--;
+        } else {
+            while (current.getNext()) {
+                if (current.getNext().getValue() === value) {
+                    current.setNext(current.getNext().getNext());
+                    this.length--;
+                    return;
+                } else {
+                    current = current.getNext();
+                }
+            }
+        }
+    }
+
+    removeDuplicate() {
+        let current = this.first;
+        
+        if (this.first == null) {
+            return;
+        } 
+
+        let value = [current.getValue()];
+
+        while (current.getNext()) {
+            if (value.includes(current.getNext().getValue())) {
+                current.setNext(current.getNext().getNext());
+                this.length--;
+            } else {
+                value.push(current.getNext().getValue());
+                current = current.getNext();
+            }
+        }
+    }
+
+    swapTailHead() {
+        let current = this.first;
+        if (this.length < 2) {
+            return; 
+        } else if (this.length == 2) {
+            current.getNext().setNext(this.first);
+            this.first = current.getNext();
+            this.first.getNext().setNext(null);
+            return;
+        }
+
+        while (current.getNext()) {
+            current = current.getNext();
+        }
+
+        current.setNext(this.first.getNext());
+
+        let temp = current;
+        for (let i = 0; i < this.length - 2; i++) {
+            temp = temp.getNext();
+        }
+
+        temp.setNext(this.first);
+        temp.getNext().setNext(null);
+        this.first = current;
+    }
+
     get(index) {
         let current = this.first;
         if (typeof (index) != 'number') {
@@ -122,32 +190,37 @@ class LinkedList {
         let fullValue = '';
         for (let i = 0; i < this.length; i++) {
             fullValue += current.getValue();
-            console.log(fullValue);
             current = current.getNext();
         }
+        console.log(fullValue);
     }
 }
 
 try {
     const data = new LinkedList();
-    data.add(0);
-    data.add(1);
-    data.add(2);
-    data.add(3);
-    data.add(4);
-    data.add(5);
-    data.add(6);
-    data.add(7);
-    data.add(8);
+    data.add('a');
+    data.add('b');
+    // data.add('c');
+    // data.add('d');
+    // data.add('e');
+    // data.add('f');
+    // data.add('g');
+    // data.add('h');
+    // data.add('i');
+
+    data.showValue();
+    data.swapTailHead();
+    // data.removeByValue('g');
+    // data.removeDuplicate();
 
     // data.insert(5,3);
     // data.remove(-1);
     // console.log(data.get(3));
     // data.swap(2,1);
-    data.showNode();
-    // data.showValue();
+    // data.showNode();
+    data.showValue();
 
-    console.log(data);
+    //console.log(data);
 } catch (e) {
     console.error(e);
 }

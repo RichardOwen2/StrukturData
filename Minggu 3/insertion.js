@@ -9,9 +9,13 @@ function processData(input) {
 
     for (let i = 1; i < arraySort.length; i++) {
         let temp = arraySort[i];
+        console.log(temp)
         let j = i-1; 
         while ((j > -1) && (temp < arraySort[j])) {
+            
             arraySort[j+1] = arraySort[j];
+            console.log(arraySort[j])
+            console.log("-----")
             j--;
         }
         arraySort[j+1] = temp;
