@@ -83,7 +83,7 @@ class LinkedList {
         } else {
             while (current.getNext()) {
                 if (current.getNext().getValue() === value) {
-                    current.setNext(current.getNext().getNext());
+                    current.getNext().getNext() ? current.setNext(current.getNext().getNext()) : current.setNext(null);
                     this.length--;
                     return;
                 } else {
@@ -104,7 +104,7 @@ class LinkedList {
 
         while (current.getNext()) {
             if (value.includes(current.getNext().getValue())) {
-                current.setNext(current.getNext().getNext());
+                current.getNext().getNext() ? current.setNext(current.getNext().getNext()) : current.setNext(null);
                 this.length--;
             } else {
                 value.push(current.getNext().getValue());
