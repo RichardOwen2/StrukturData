@@ -1,35 +1,17 @@
-// let counted = false;
-
 function quickSort(arr) {
+    
     if (arr.length < 2) return arr;
 
     let min = 1;
     let max = arr.length - 1;
-    let rand = Math.floor(min + Math.random() * (max + 1 - min));
+    let indexRand = Math.floor(min + Math.random() * max);
 
-    // let nums = [];
-    // if (!counted) {
-    //     for (let i = 0; i < 100 ; i++) {
-    //         nums.push(Math.floor(Math.random() * max + min));
-    //     }
-    //     for (let i = 0; i < arr.length; i ++) {
-    //         let count = 0;
-    //         for (let j = 0; j < nums.length; j++) {
-    //             if (nums[j] === i) {
-    //                 count++
-    //             }
-    //         }
-    //         console.log(`jumlah ${i} = ${count}`)
-    //     }
-    //     counted = true;
-    // }
-
-    let pivot = arr[rand];
+    let pivot = arr[indexRand];
 
     const left = [];
     const right = [];
 
-    arr.splice(arr.indexOf(pivot), 1);
+    arr.splice(indexRand, 1);
     arr = [pivot].concat(arr);
     for (let i = 1; i < arr.length; i++) {
         if (pivot > arr[i]) {
@@ -38,9 +20,24 @@ function quickSort(arr) {
         right.push(arr[i]);
         }
     }
+    console.log("Pivot = " + pivot);
+    console.log("Index Pivot = " + indexRand);
+    console.log("After Sorting = " + left.concat(pivot, right));
+    console.log("");
     return quickSort(left).concat(pivot, quickSort(right));
 }
 
-const arraySample = [-2,3,5,-2,5,7,4,2,-2,-8,4,1];
-console.log(arraySample);
-console.log(quickSort(arraySample));
+function processData(input) {
+    console.log("Before Sorting = " + input);
+    console.log("");
+
+    let arr = input.split(",");
+    
+    for (let i = 0; i < arr.length; i++) {
+        arr[i] = parseInt(arr[i]);
+    }
+    console.log("Result = " + quickSort(arr).join())
+}
+
+let sample = "-5,5,-4,4,-3,3,-2,2,-1,1,0";
+processData(sample);
