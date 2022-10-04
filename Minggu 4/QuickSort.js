@@ -1,10 +1,11 @@
 function quickSort(arr) {
+    if (arr.length < 2) {
+        return arr;
+    } else {
+        console.log("Before Sorting = " + arr);
+    }
     
-    if (arr.length < 2) return arr;
-
-    let min = 1;
-    let max = arr.length - 1;
-    let indexRand = Math.floor(min + Math.random() * max);
+    let indexRand = Math.floor(1 + Math.random() * arr.length - 1);
 
     let pivot = arr[indexRand];
 
@@ -28,7 +29,7 @@ function quickSort(arr) {
 }
 
 function processData(input) {
-    console.log("Before Sorting = " + input);
+    console.log("Samples = " + input);
     console.log("");
 
     let arr = input.split(",");
@@ -39,5 +40,6 @@ function processData(input) {
     console.log("Result = " + quickSort(arr).join())
 }
 
-let sample = "-5,5,-4,4,-3,3,-2,2,-1,1,0";
+// let sample = "-5,5,-4,4,-3,3,-2,2,-1,1,0";
+let sample = "-10,5,-8,4,-7,3,20,2,23,60,20,-1,1,18,0,11";
 processData(sample);
