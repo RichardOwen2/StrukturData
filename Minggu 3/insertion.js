@@ -1,4 +1,4 @@
-const arraySample = "0,-1,1,-2,2,-3,3,-4,4,-5";
+const sample = "-10,5,-8,4,-7,3,20,2,23,60,20,-1";
 
 function processData(input) {
     let arraySort = input.split(",");
@@ -8,21 +8,21 @@ function processData(input) {
     } 
 
     for (let i = 1; i < arraySort.length; i++) {
+        console.log("Before Sorting = " + arraySort.join());
         let temp = arraySort[i];
-        console.log(temp)
         let j = i-1; 
         while ((j > -1) && (temp < arraySort[j])) {
             
             arraySort[j+1] = arraySort[j];
-            console.log(arraySort[j])
-            console.log("-----")
             j--;
         }
         arraySort[j+1] = temp;
+        console.log("temp = " + temp)
+        console.log("After Sorting = " + arraySort.join() + "\n");
     }
     return arraySort.join();
 }
 
-const hasil = processData(arraySample);
+const hasil = processData(sample);
 
-console.log(hasil);
+console.log("Final = " + hasil);

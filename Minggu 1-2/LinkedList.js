@@ -113,7 +113,7 @@ class LinkedList {
         }
     }
 
-    swapTailHead() {
+    swapTailfirst() {
         let current = this.first;
         if (this.length < 2) {
             return; 
@@ -159,17 +159,40 @@ class LinkedList {
             throw new Error("Index must be a number");
         } else if (index1 > this.length || index2 > this.length) {
             throw new Error("Index is more than data length");
-        } else {
-            const current1 = this.get(index1);
-            const current2 = this.get(index2);
-
-            this.remove(index1);
-            this.insert(current2.getValue(),index1);
-
-            this.remove(index2);
-            this.insert(current1.getValue(),index2);
-            
+        } else if (!this.first || index1 == index2) {
+            return;
         }
+
+        let prevNode1 = null;  
+        let prevNode2 = null;  
+        let node1 = this.first;
+        let node2 = this.first;
+
+        for (let i = 0 ; i < index1; i++) {
+            prevNode1 = node1;
+            node1 = node1.getNext();
+        }
+
+        for (let i = 0 ; i < index2; i++) {
+            prevNode2 = node2;
+            node2 = node2.getNext();
+        }
+
+        if (prevNode1) {
+            prevNode1.setNext(node2);
+        } else {
+            this.first = node2;  
+        }
+
+        if (prevNode2) {
+            prevNode2.setNext(node1);  
+        } else {
+            this.first  = node1; 
+        } 
+        
+        let temp = node1.getNext();   
+        node1.setNext(node2.getNext());   
+        node2.setNext(temp);
     }
 
     showNode() {
@@ -188,7 +211,11 @@ class LinkedList {
     showValue() {
         let current = this.first;
         let fullValue = '';
-        for (let i = 0; i < this.length; i++) {
+        // for (let i = 0; i < this.length; i++) {
+        //     fullValue += current.getValue();
+        //     current = current.getNext();
+        // }
+        while (current.getNext()) {
             fullValue += current.getValue();
             current = current.getNext();
         }
@@ -198,25 +225,25 @@ class LinkedList {
 
 try {
     const data = new LinkedList();
-    data.add('a');
-    data.add('b');
-    // data.add('c');
-    // data.add('d');
-    // data.add('e');
-    // data.add('f');
-    // data.add('g');
-    // data.add('h');
-    // data.add('i');
+    data.add(1);
+    data.add(2);
+    data.add(3);
+    data.add(4);
+    data.add(5);
+    data.add(6);
+    data.add(7);
+    data.add(8);
+    data.add(9);
 
-    data.showValue();
-    data.swapTailHead();
+    // data.showValue();
+    // data.swapTailfirst();
     // data.removeByValue('g');
     // data.removeDuplicate();
 
     // data.insert(5,3);
     // data.remove(-1);
     // console.log(data.get(3));
-    // data.swap(2,1);
+    data.swap(0,1);
     // data.showNode();
     data.showValue();
 
