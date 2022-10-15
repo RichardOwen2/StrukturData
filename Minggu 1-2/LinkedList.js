@@ -43,7 +43,7 @@ class LinkedList {
             throw new Error("Index must be a number");
         } else if (index == 0 && this.length == 0) {
             this.first = node;
-        }else if (index > this.length || index < 0) {
+        } else if (index > this.length || index < 0) {
             throw new Error("Index is more than data length"); 
         } else {
             for (let i = 0; i < index - 1; i++) {
@@ -229,6 +229,14 @@ try {
     data.add(2);
     data.add(3);
     data.add(4);
+    data.add(4);
+    data.add(4);
+    data.add(4);
+    data.add(4);
+    data.add(4);
+    data.add(4);
+    data.add(4);
+    data.add(4);
     data.add(5);
     data.add(6);
     data.add(7);
@@ -238,12 +246,12 @@ try {
     // data.showValue();
     // data.swapTailfirst();
     // data.removeByValue('g');
-    // data.removeDuplicate();
+    data.removeDuplicate();
 
     // data.insert(5,3);
     // data.remove(-1);
     // console.log(data.get(3));
-    data.swap(0,1);
+    // data.swap(0,1);
     // data.showNode();
     data.showValue();
 
