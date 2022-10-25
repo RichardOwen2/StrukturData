@@ -199,10 +199,11 @@ class LinkedList {
         let current = this.first;
         for (let i = 0; i < this.length; i++) {
             console.log(
-                `Index = ${i}, 
-            \nValue = ${current.getValue()}, 
-            \nNext = ${(current.getNext()) ? current.getNext().getValue() : undefined}`
+            `Index = ${i}, 
+Value = ${current.getValue()}, 
+Next = ${(current.getNext()) ? current.getNext().getValue() : undefined}`
             );
+            console.log("");
 
             current = current.getNext();
         }
@@ -219,7 +220,9 @@ class LinkedList {
             fullValue += current.getValue();
             current = current.getNext();
         }
+        fullValue += current.getValue();
         console.log(fullValue);
+        console.log("");
     }
 }
 
@@ -229,31 +232,24 @@ try {
     data.add(2);
     data.add(3);
     data.add(4);
-    data.add(4);
-    data.add(4);
-    data.add(4);
-    data.add(4);
-    data.add(4);
-    data.add(4);
-    data.add(4);
-    data.add(4);
     data.add(5);
     data.add(6);
     data.add(7);
     data.add(8);
     data.add(9);
 
-    // data.showValue();
+    //data.showValue();
+    //data.showNode();
     // data.swapTailfirst();
     // data.removeByValue('g');
-    data.removeDuplicate();
+    // data.removeDuplicate();
 
-    // data.insert(5,3);
-    // data.remove(-1);
+    // data.insert(50,3);
+    // data.remove(2);
     // console.log(data.get(3));
     // data.swap(0,1);
     // data.showNode();
-    data.showValue();
+    // data.showValue();
 
     //console.log(data);
 } catch (e) {

@@ -10,7 +10,7 @@ class QuickSort{
             console.log("Before Sorting = " + arr);
         }
         
-        let indexRand = Math.floor(1 + Math.random() * arr.length - 1);
+        let indexRand = Math.floor(Math.random() * arr.length);
     
         let pivot = arr[indexRand];
     

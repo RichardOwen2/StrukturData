@@ -179,12 +179,12 @@ try {
     data.add(4);
     data.add(5);
 
-    // data.insert(8,3);
+    data.insert(2,4);
     // data.remove(4);
     // console.log(data.get(3));
     // data.swap(1,2);
-    data.showNode();
-    // data.showValue();
+    // data.showNode();
+    data.showValue();
 
     console.log(data);
 } catch (e) {
