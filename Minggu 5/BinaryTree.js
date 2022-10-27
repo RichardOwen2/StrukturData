@@ -43,24 +43,24 @@ class Tree {
         if (this.root == null) {
             this.root = node;
         } else {
-            this.insertNode(this.root, node);
+            this.insertHelper(this.root, node);
         }
     }
 
-    insertNode(node, newNode) {
+    insertHelper(node, newNode) {
         if (newNode.getValue() < node.getValue()) {
             if (!node.getLeft()) {
                 node.setLeft(newNode);
                 newNode.setParent(node);
             } else {
-                this.insertNode(node.left, newNode);
+                this.insertHelper(node.left, newNode);
             }
         } else {
             if (!node.getRight()) {
                 node.setRight(newNode);
                 newNode.setParent(node);
             } else {
-                this.insertNode(node.right,newNode);
+                this.insertHelper(node.right,newNode);
             }
         }   
     }
@@ -87,7 +87,7 @@ class Tree {
         return false;
     }
 
-    showNode(node = this.root) {
+    inOrder(node = this.root) {
         if (node.getLeft()) {
             this.showNode(node.getLeft());
         } 
@@ -96,6 +96,18 @@ class Tree {
             this.showNode(node.getRight());
         }
         console.log(node.getValue());
+    }
+
+    preOrder() {
+        return this.preOrderHelper(this.root);
+    }
+
+    preOrderHelper(node) {
+        if (node) {
+            console.log(node.getValue());
+            this.preOrderHelper(node.getLeft());
+            this.preOrderHelper(node.getRight());
+        }
     }
 }
 
