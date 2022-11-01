@@ -13,7 +13,7 @@ class InsertionSort{
                 arr[j+1] = arr[j];
                 j--;
             }
-            
+
             arr[j+1] = temp;
             
             this.showProcess(temp, arr);
@@ -32,7 +32,7 @@ class InsertionSort{
     }
 
     showProcess(temp, arr) {
-        console.log("temp = " + temp)
+        console.log("Compare data = " + temp)
         console.log("After Sorting = " + arr.join() + "\n");
     }
 
@@ -45,7 +45,7 @@ class InsertionSort{
     }
 }
 
-const sample = "-5,5,-4,4,-3,3,-2,2,-1,1,0";
+const sample = "50,5,-4,4,-3,3,-2,2,-1,1,0";
 const insertionSort =  new InsertionSort(sample);
 
 insertionSort.do();

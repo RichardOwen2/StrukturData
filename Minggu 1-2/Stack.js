@@ -58,10 +58,11 @@ class Stack {
         let current = this.first;
         for (let i = 0; i < this.length; i++) {
             console.log(
-                `Index = ${i}, 
-            \nValue = ${current.getValue()}, 
-            \nNext = ${(current.getNext()) ? current.getNext().getValue() : undefined}`
+            `Index = ${i}, 
+Value = ${current.getValue()}, 
+Next = ${(current.getNext()) ? current.getNext().getValue() : undefined}`
             );
+            console.log("");
 
             current = current.getNext();
         }
@@ -70,11 +71,17 @@ class Stack {
     showValue() {
         let current = this.first;
         let fullValue = '';
-        for (let i = 0; i < this.length; i++) {
+        // for (let i = 0; i < this.length; i++) {
+        //     fullValue += current.getValue();
+        //     current = current.getNext();
+        // }
+        while (current.getNext()) {
             fullValue += current.getValue();
-            console.log(fullValue);
             current = current.getNext();
         }
+        fullValue += current.getValue();
+        console.log(fullValue);
+        console.log("");
     }
 }
 
@@ -91,11 +98,11 @@ try {
     data.push(8);
 
     // data.pop();
-    // data.pop(2);
-    data.showNode();
-    // data.showValue();
+    data.pop(2);
+    // data.showNode();
+    data.showValue();
 
-    console.log(data);
+    // console.log(data);
 } catch (e) {
     console.error(e);
 }
