@@ -9,7 +9,7 @@ class InsertionSort{
             let temp = arr[i];
             let j = i-1; 
 
-            while ((j > -1) && (temp < arr[j])) {
+            while ((j > - 1) && (temp < arr[j])) {
                 arr[j+1] = arr[j];
                 j--;
             }

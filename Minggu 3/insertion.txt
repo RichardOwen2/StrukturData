@@ -1,0 +1,15 @@
+program start
+    SET variable arr : array
+    FOR position = 1 to each data arr
+        SET variable temp = arr[position];
+        SET variable j = position-1; 
+
+        WHILE j > - 1 AND temp < arr[j]
+            arr[j+1] = arr[j];
+            j--;
+        END WHILE
+        
+        arr[j+1] = temp;
+        
+    END FOR
+program end

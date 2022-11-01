@@ -149,10 +149,7 @@ class LinkedList {
         let current = this.first;
         for (let i = 0; i < this.length; i++) {
             console.log(
-                `Index = ${i}, 
-            \nPrev = ${(current.getPrev()) ? current.getPrev().getValue() : undefined}
-            \nValue = ${current.getValue()}, 
-            \nNext = ${(current.getNext()) ? current.getNext().getValue() : undefined}`
+                `\nIndex = ${i}\nPrev = ${(current.getPrev()) ? current.getPrev().getValue() : null}\nValue = ${current.getValue()} \nNext = ${(current.getNext()) ? current.getNext().getValue() : null}`
             );
 
             current = current.getNext();
@@ -162,11 +159,16 @@ class LinkedList {
     showValue() {
         let current = this.first;
         let fullValue = '';
-        for (let i = 0; i < this.length; i++) {
+        // for (let i = 0; i < this.length; i++) {
+        //     fullValue += current.getValue();
+        //     current = current.getNext();
+        // }
+        while (current.getNext()) {
             fullValue += current.getValue();
-            console.log(fullValue);
             current = current.getNext();
         }
+        fullValue += current.getValue();
+        console.log(fullValue);
     }
 }
 
@@ -179,14 +181,14 @@ try {
     data.add(4);
     data.add(5);
 
-    // data.insert(8,3);
+    // data.insert(2,4);
     // data.remove(4);
     // console.log(data.get(3));
-    // data.swap(1,2);
-    data.showNode();
-    // data.showValue();
+    // data.swap(2,4);
+    // data.showNode();
+    data.showValue();
 
-    console.log(data);
+    // console.log(data);
 } catch (e) {
     console.error(e);
 }
