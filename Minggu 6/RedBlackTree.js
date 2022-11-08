@@ -56,35 +56,29 @@ class Tree {
     }
 
     insert(key, value) {
-        let y = null;
-        let x = this.root;
+        let current = this.root;
+        let pointer = null;
         const node = new Node(key, value);
         if (this.root == null) {
             this.root = node;
-            node.color = nodeColor.BLACK;
-            node.parent = null;
+            node.setBlack();
         } else {
-        while (!isNilNode(x)) {
-            y = x;
-            if (node.key < x.key) {
-                x = x.left;
-            } else {
-                x = x.right;
+            while (current) {
+                pointer = current;
+                if (node.getKey() < current.getKey()) {
+                    current = current.getLeft();
+                } else {
+                    current = current.getRight();
+                }
             }
-        }
-        node.parent = y;
-          // current node parent is root
-        if (node.key < y.key) {
-            y.left = node;
-        } else {
-            y.right = node;
-        }
-          // y.right is now node
-            node.left = createLeafNode(node);
-            node.right = createLeafNode(node);
-            node.color = nodeColor.RED;
-            this.fixTree(z);
-        }
+            node.setParent(y);
+            if (node.getKey() < pointer.getKey()) {
+                pointer.setLeft(node);
+            } else {
+                pointer.setRight(node);
+            }
+                this.fixTree(node);
+            }
     }
 
     add(key, value) {
