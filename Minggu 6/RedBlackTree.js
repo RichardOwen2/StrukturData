@@ -3,9 +3,6 @@ class Node {
         this.key = key;
         this.value = value;
         this.isRed = true;
-        this.parent = null;
-        this.left = null;
-        this.right = null;
     }
 
     setParent(parent) {
@@ -53,21 +50,42 @@ class Node {
     }
 }
 
+// Helper
+
+function createNode(key, value) {
+    let node = new Node(key, value);
+    node.setLeft(createLeafNode(node));
+    node.setRight(createLeafNode(node));
+
+    return node;
+}
+
+function createLeafNode(parent) {
+    let node = new Node(null, null);
+    node.setBlack();
+    node.setParent(parent);
+
+    return node;
+}
+
+function isNilNode(node) {
+    return node == null || !(node.getKey() || node.getValue() || node.checkIsRed() || node.getLeft() || node.getRight());
+}
+
 class Tree {
     constructor() {
         this.root = null;
     }
 
     insert(key, value) {
-        console.log("d")
         let current = this.root;
         let pointer = null;
-        const node = new Node(key, value);
+        const node = createNode(key, value);
         if (this.root == null) {
             this.root = node;
             node.setBlack();
         } else {
-            while (current) {
+            while (!isNilNode(current)) {
                 pointer = current;
                 if (node.getKey() < current.getKey()) {
                     current = current.getLeft();
@@ -81,12 +99,13 @@ class Tree {
             } else {
                 pointer.setRight(node);
             }
+            node.setLeft(createLeafNode(node));
+            node.setRight(createLeafNode(node));
             this.fixTree(node);
         }
     }
 
     fixTree(node) {
-        console.log("d")
         while (node.getParent() && node.getParent().checkIsRed()) {
             let uncle = null;
             if (node.getParent() === node.getParent().getParent().getLeft()) {
@@ -101,15 +120,12 @@ class Tree {
                 }
 
                 if (node === node.getParent().getRight()) {
-                    // Double rotation needed
                     node = node.getParent();
                     this.rotateLeft(node);
                 }
-
                 node.getParent().setBlack();
                 node.getParent().getParent().setRed();
-                // if the "else if" code hasn't executed, this
-                // is a case where we only need a single rotation
+
                 this.rotateRight(node.getParent().getParent());
             } else {
                 uncle = node.getParent().getParent().getLeft();
@@ -137,19 +153,20 @@ class Tree {
     }
 
     rotateRight(node) {
-        console.log("d")
         const current = node.getLeft();
 
-        if (current.getRight()) {
-            node.setLeft(current.getRight());
+        if (isNilNode(current.getRight())) {
+            node.setLeft(createLeafNode(node));
+        } else {
+            node.setLeft(current.left());
         }
 
-        if (current.getRight()) {
+        if (isNilNode(current.getRight())) {
             current.getRight().setParent(node);
         }
         current.setParent(node);
 
-        if (!node.getParent()) {
+        if (isNilNode(node.getParent())) {
             this.root = current;
         } else {
             if (node === node.getParent().getRight()) {
@@ -163,14 +180,15 @@ class Tree {
     }
 
     rotateLeft(node) {
-        console.log("d")
         const current = node.getRight();
 
-        if (current.getLeft()) {
+        if (isNilNode(current.getLeft())) {
+            node.setRight(createLeafNode(node));
+        } else {
             node.setRight(current.getLeft());
         }
 
-        if (current.getLeft()) {
+        if (!isNilNode(current.getLeft())) {
             current.getLeft().setParent(node);
         }
 
