@@ -116,8 +116,7 @@ class Tree {
         }
         return Math.max(this.height(root.left), this.height(root.right))+1
     }
- 
- 
+
     getcol(h){
         if (h == 1){
             return 1
