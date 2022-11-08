@@ -109,6 +109,36 @@ class Tree {
             this.preOrderHelper(node.getRight());
         }
     }
+
+    showDepth() {
+        return this.showDepthHelper(this.root);
+    }
+
+    showDepthHelper(node) {
+        if (node == null)
+            return 0;
+        else {
+            const lDepth = this.showDepth(node.getLeft());
+            const rDepth = this.showDepth(node.getRight());
+
+            if (lDepth > rDepth)
+                return (lDepth + 1);
+            else
+                return (rDepth + 1);
+        }
+    }
+
+    showNode() {
+        return this.showNodeHelper(this.root, "");
+    }
+
+    showNodeHelper(node, indent) {
+        if (node) {
+            console.log(indent + node.getValue());
+            this.showNodeHelper(node.getLeft(), indent+" ");
+            this.showNodeHelper(node.getRight(), indent+" ");
+        }
+    }
 }
 
 const data = new Tree();
@@ -119,7 +149,8 @@ data.insert(6);
 data.insert(9);
 data.insert(7);
 data.insert(4);
+console.log(data.showDepth());
 
-console.log(data.isExist(650));
+//console.log(data.isExist(650));
 
 //console.log(data);

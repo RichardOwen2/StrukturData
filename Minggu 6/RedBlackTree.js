@@ -1,6 +1,8 @@
 class Node {
-    constructor(value) {
+    constructor(key, value) {
+        this.key = key;
         this.value = value;
+        this.isRed = true;
     }
 
     setParent(parent) {
@@ -15,8 +17,16 @@ class Node {
         this.right = right;
     }
 
-    setRed(red) {
-        this.isRed = red;
+    setRed() {
+        this.isRed = true;
+    }
+
+    setBlack() {
+        this.isRed = false;
+    }
+
+    getKey() {
+        return this.key;
     }
 
     getValue() {
@@ -45,89 +55,98 @@ class Tree {
         this.root = null;
     }
 
-    insert(value) {
-        const node = new Node(value);
+    insert(key, value) {
+        let y = null;
+        let x = this.root;
+        const node = new Node(key, value);
+        if (this.root == null) {
+            this.root = node;
+            node.color = nodeColor.BLACK;
+            node.parent = null;
+        } else {
+        while (!isNilNode(x)) {
+            y = x;
+            if (node.key < x.key) {
+                x = x.left;
+            } else {
+                x = x.right;
+            }
+        }
+        node.parent = y;
+          // current node parent is root
+        if (node.key < y.key) {
+            y.left = node;
+        } else {
+            y.right = node;
+        }
+          // y.right is now node
+            node.left = createLeafNode(node);
+            node.right = createLeafNode(node);
+            node.color = nodeColor.RED;
+            this.fixTree(z);
+        }
+    }
+
+    add(key, value) {
+        const node = new Node(key, value);
 
         if (this.root == null) {
             this.root = node;
         } else {
-            this.insertHelper(this.root, node);
+            this.addHelper(this.root, node);
         }
     }
 
-    insertHelper(node, newNode) {
-        if (newNode.getValue() < node.getValue()) {
+    addHelper(node, newNode) {
+        if (newNode.getKey() < node.getKey()) {
             if (!node.getLeft()) {
                 node.setLeft(newNode);
                 newNode.setParent(node);
             } else {
-                this.insertHelper(node.left, newNode);
+                this.addHelper(node.left, newNode);
             }
         } else {
             if (!node.getRight()) {
                 node.setRight(newNode);
                 newNode.setParent(node);
             } else {
-                this.insertHelper(node.right,newNode);
+                this.addHelper(node.right,newNode);
             }
         }   
     }
 
-    isExist(value, node = this.root) {
-        if (node.getValue() == value) {
-            return true;
+    get(key, node = this.root) {
+        if (node.getKey() == key) {
+            return node.getValue();
         }
 
         if (node.getLeft()) {
-            const left = this.isExist(value, node.getLeft());
+            const left = this.get(key, node.getLeft());
             if (left) {
-                return true;
+                return node.getValue();
             }
         } 
         
         if (node.getRight()) {
-            const right = this.isExist(value, node.getRight());
+            const right = this.get(key, node.getRight());
             if (right) {
-                return true;
+                return node.getValue();
             }
         }
 
-        return false;
-    }
-
-    inOrder(node = this.root) {
-        if (node.getLeft()) {
-            this.showNode(node.getLeft());
-        } 
-        
-        if (node.getRight()) {
-            this.showNode(node.getRight());
-        }
-        console.log(node.getValue());
-    }
-
-    preOrder() {
-        return this.preOrderHelper(this.root);
-    }
-
-    preOrderHelper(node) {
-        if (node) {
-            console.log(node.getValue());
-            this.preOrderHelper(node.getLeft());
-            this.preOrderHelper(node.getRight());
-        }
+        return null;
     }
 }
 
-const data = new Tree();
-data.insert(5);
-data.insert(8);
-data.insert(3);
-data.insert(6);
-data.insert(9);
-data.insert(7);
-data.insert(4);
+// const data = new Tree();
+// data.insert(5);
+// data.insert(8);
+// data.insert(3);
+// data.insert(6);
+// data.insert(9);
+// data.insert(7);
+// data.insert(4);
 
-console.log(data.isExist(650));
+// console.log(data.isExist(650));
 
 //console.log(data);
