@@ -125,14 +125,14 @@ class Tree {
         return this.getcol(h-1) + this.getcol(h-1) + 1
     }
 
-    printTree(M, root, col, row, height){
+    printTree(M, root, col, row, height, leftRow, rightRow){
         if (!root){
             return
         }
         // const substract (i) =>  
         M[row][col] = root.getValue()
-        this.printTree(M, root.getLeft(), col-Math.pow(2, height-2), row+1, height-1)
-        this.printTree(M, root.getRight(), col+Math.pow(2, height-2), row+1, height-1)
+        this.printTree(M, root.getLeft(), col-Math.pow(2, height-2), row+1, height-1, )
+        this.printTree(M, root.getRight(), col+Math.pow(2, height-2), row+1, height-1, )
     }
 
 
@@ -142,12 +142,12 @@ class Tree {
         let col = this.getcol(h)
         let M =  Array.from({length:h},_ => Array.from({length:col},_=> null))
         
-        this.printTree(M, this.root, Math.floor(col/2, 1), 0, h)
-        // console.log(M)
+        this.printTree(M, this.root, Math.floor(col/2, 1), 0, h, )
+        console.log(M)
         M.map(i => {
             i.map(j => {
                 if (j == null){
-                    data += "  "
+                    data += "-|"
                 }else{
                     data += `${j} `
                 }
