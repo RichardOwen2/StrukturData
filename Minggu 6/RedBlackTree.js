@@ -111,71 +111,87 @@ class Tree {
         }
     }
 
-    // fixTree(node) {
-    //     while (node.getParent() && node.getParent().checkIsRed()) {
-    //         let uncle = null;
-    //         if (node.getParent() === node.getParent().getParent().getLeft()) {
-    //             uncle = node.getParent().getParent().getRight();
-
-    //             if (uncle && uncle.checkIsRed()) {
-    //                 node.getParent().setBlack();
-    //                 uncle.setBlack();
-    //                 node.getParent().getParent().setRed();
-    //                 node = node.getParent().getParent();
-    //                 continue;
-    //             }
-
-    //             if (node === node.getParent().getRight()) {
-    //                 node = node.getParent();
-    //                 this.rotateLeft(node);
-    //             }
-    //             node.getParent().setBlack();
-    //             node.getParent().getParent().setRed();
-
-    //             this.rotateRight(node.getParent().getParent());
-    //         } else {
-    //             uncle = node.getParent().getParent().getLeft();
-    //             if (uncle && uncle.checkIsRed()) {
-    //                 node.getParent().setBlack();
-    //                 uncle.setBlack();
-    //                 node.getParent().getParent().setRed();
-    //                 node = node.getParent().getParent();
-    //                 continue;
-    //             }
-
-    //             if (node === node.getParent().getLeft()) {
-    //                 // Double rotation needed
-    //                 node = node.getParent();
-    //                 this.rotateRight(node);
-    //             }
-    //             node.getParent().setBlack();
-    //             node.getParent().getParent().setRed();
-    //             // if the "else if" code hasn't executed, this
-    //             // is a case where we only need a single rotation
-    //             this.rotateLeft(node.getParent().getParent());
-    //         }
-    //     }
-    //     this.root.setBlack();
-    // }
-
     fixTree(node) {
-        while(node.getParent() && node.getParent().checkIsRed()) {
-            let uncle = node.getParent().getParent()
-            if (uncle.getLeft()) {
-                uncle = uncle.getLeft();
-            } else {
-                uncle = uncle.getRight();
-            }
-            let grandParent = node.getParent().getParent();
-            
-            if (uncle && uncle.checkIsRed()) {
+        while (node.getParent() && node.getParent().checkIsRed()) {
+            let uncle = null;
+            if (node.getParent() === node.getParent().getParent().getLeft()) {
+                uncle = node.getParent().getParent().getRight();
+
+                if (uncle && uncle.checkIsRed()) {
+                    node.getParent().setBlack();
+                    uncle.setBlack();
+                    node.getParent().getParent().setRed();
+                    node = node.getParent().getParent();
+                    continue;
+                }
+
+                if (node === node.getParent().getRight()) {
+                    node = node.getParent();
+                    this.rotateLeft(node);
+                }
                 node.getParent().setBlack();
-                uncle.setBlack();
-                grandParent.setRed();
-                node = grandParent;
+                node.getParent().getParent().setRed();
+
+                this.rotateRight(node.getParent().getParent());
+            } else {
+                uncle = node.getParent().getParent().getLeft();
+                if (uncle && uncle.checkIsRed()) {
+                    node.getParent().setBlack();
+                    uncle.setBlack();
+                    node.getParent().getParent().setRed();
+                    node = node.getParent().getParent();
+                    continue;
+                }
+
+                if (node === node.getParent().getLeft()) {
+                    // Double rotation needed
+                    node = node.getParent();
+                    this.rotateRight(node);
+                }
+                node.getParent().setBlack();
+                node.getParent().getParent().setRed();
+                // if the "else if" code hasn't executed, this
+                // is a case where we only need a single rotation
+                this.rotateLeft(node.getParent().getParent());
             }
         }
+        this.root.setBlack();
     }
+
+    // fixTree(node) {
+    //     while(node.getParent() && node.getParent().checkIsRed()) {
+    //         let uncle = node.getParent().getParent()
+    //         if (uncle.getLeft()) {
+    //             uncle = uncle.getLeft();
+    //         } else {
+    //             uncle = uncle.getRight();
+    //         }
+    //         let grandParent = node.getParent().getParent();
+            
+    //         if (uncle && uncle.checkIsRed()) {
+    //             node.getParent().setBlack();
+    //             uncle.setBlack();
+    //             grandParent.setRed();
+    //             node = grandParent;
+    //         } else {
+    //             if (node == node.getParent().getRight() && node.getParent() == grandParent.getLeft()) {
+    //                 this.rotateLeft(node.getParent());
+    //                 node = node.getLeft();
+    //             } else if (node = node.getParent().getLeft() && node.getParent() == grandParent.getLeft()) {
+    //                 this.rotateRight(node.getParent());
+    //                 node = node.getRight();
+    //             }
+    //             grandParent = node.getParent().getParent();
+    //             node.getParent().setBlack();
+    //             grandParent.setRed();
+    //             if (node == node.getParent().getLeft() && node.getParent() == grandParent.getLeft()) {
+    //                 this.rotateRight(grandParent);
+    //             } else {
+    //                 this.rotateLeft(grandParent);
+    //             }
+    //         }
+    //     }
+    // }
 
     rotateRight(node) {
         const current = node.getLeft();
@@ -457,21 +473,19 @@ class Tree {
 }
 
 const data = new Tree();
-data.insert(1);
-data.insert(12);
-data.insert(21);
-data.insert(3);
-data.insert(8);
-data.insert(9);
-data.insert(23);
-data.insert(5);
-data.insert(20);
-console.log(data.findNode(9))
-
-data.insert(7);
+data.insert(1);data.printTree();
+data.insert(12);data.printTree();
+data.insert(21);data.printTree();
+data.insert(3);data.printTree();
+data.insert(8);data.printTree();
+data.insert(9);data.printTree();
+data.insert(23);data.printTree();
+data.insert(5);data.printTree();
+data.insert(20);data.printTree();
+data.remove(21);
 
 data.printTree();
-console.log(data.findNode(9))
+
 
 // console.log(data.isExist(650));
 
