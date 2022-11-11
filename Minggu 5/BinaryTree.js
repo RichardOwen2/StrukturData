@@ -6,7 +6,7 @@ class Node {
     setParent(parent) {
         this.parent = parent;
     }
-    
+
     setLeft(left) {
         this.left = left;
     }
@@ -60,9 +60,9 @@ class Tree {
                 node.setRight(newNode);
                 newNode.setParent(node);
             } else {
-                this.insertHelper(node.right,newNode);
+                this.insertHelper(node.right, newNode);
             }
-        }   
+        }
     }
 
     isExist(value, node = this.root) {
@@ -75,8 +75,8 @@ class Tree {
             if (left) {
                 return true;
             }
-        } 
-        
+        }
+
         if (node.getRight()) {
             const right = this.isExist(value, node.getRight());
             if (right) {
@@ -87,15 +87,21 @@ class Tree {
         return false;
     }
 
-    inOrder(node = this.root) {
-        if (node.getLeft()) {
-            this.showNode(node.getLeft());
-        } 
-        
-        if (node.getRight()) {
-            this.showNode(node.getRight());
+
+
+    inOrder() {
+        let arr = [];
+        this.inOrderHelper(this.root, arr);
+        console.log(arr);
+    }
+
+    inOrderHelper(node, arr) {
+        if (node) {
+            this.inOrderHelper(node.getLeft(), arr);
+            arr.push(node.getValue());
+            this.inOrderHelper(node.getRight(), arr);
+            return arr
         }
-        console.log(node.getValue());
     }
 
     preOrder() {
@@ -110,35 +116,60 @@ class Tree {
         }
     }
 
-    showDepth() {
-        return this.showDepthHelper(this.root);
+    postOrder() {
+        return this.postOrderHelper(this.root);
     }
 
-    showDepthHelper(node) {
-        if (node == null)
-            return 0;
-        else {
-            const lDepth = this.showDepth(node.getLeft());
-            const rDepth = this.showDepth(node.getRight());
-
-            if (lDepth > rDepth)
-                return (lDepth + 1);
-            else
-                return (rDepth + 1);
-        }
-    }
-
-    showNode() {
-        return this.showNodeHelper(this.root, "");
-    }
-
-    showNodeHelper(node, indent) {
+    postOrderHelper(node) {
         if (node) {
-            console.log(indent + node.getValue());
-            this.showNodeHelper(node.getLeft(), indent+" ");
-            this.showNodeHelper(node.getRight(), indent+" ");
+            this.postOrderHelper(node.getLeft());
+            this.postOrderHelper(node.getRight());
+            console.log(node.getValue());
         }
     }
+
+    printTree() {
+        this.printTreeHelper("",this.root,true);
+        console.log("--------------------------------------------------------------------------------------")
+    }
+
+    printTreeHelper(prefix, node, isLeft) {
+        if (node) {
+            this.printTreeHelper(prefix + (isLeft ? "│   " : "    "), node.getRight(), false);
+            console.log(prefix + (isLeft ? "└── " : "┌── ") + (node.getValue()));
+            this.printTreeHelper(prefix + (isLeft ? "    " : "│   "), node.getLeft(), true);
+        }
+    }
+
+    // showDepth() {
+    //     return this.showDepthHelper(this.root);
+    // }
+
+    // showDepthHelper(node) {
+    //     if (node == null)
+    //         return 0;
+    //     else {
+    //         const lDepth = this.showDepth(node.getLeft());
+    //         const rDepth = this.showDepth(node.getRight());
+
+    //         if (lDepth > rDepth)
+    //             return (lDepth + 1);
+    //         else
+    //             return (rDepth + 1);
+    //     }
+    // }
+
+    // showNode() {
+    //     return this.showNodeHelper(this.root, "");
+    // }
+
+    // showNodeHelper(node, indent) {
+    //     if (node) {
+    //         console.log(indent + node.getValue());
+    //         this.showNodeHelper(node.getLeft(), indent+" ");
+    //         this.showNodeHelper(node.getRight(), indent+" ");
+    //     }
+    // }
 }
 
 const data = new Tree();
@@ -149,7 +180,11 @@ data.insert(6);
 data.insert(9);
 data.insert(7);
 data.insert(4);
-console.log(data.showDepth());
+
+//data.inOrder();
+//data.preOrder();
+//data.postOrder();
+data.printTree();
 
 //console.log(data.isExist(650));
 
