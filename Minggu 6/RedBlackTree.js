@@ -302,6 +302,10 @@ data.TreePrinter();
 data.insert(6);
 data.TreePrinter();
 data.insert(10);
+data.insert(23);
+data.insert(24);
+data.insert(27);
+data.insert(90);
 data.TreePrinter();
 
 // console.log(data.isExist(650));
