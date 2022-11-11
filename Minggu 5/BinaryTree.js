@@ -14,6 +14,10 @@ class Node {
     setRight(right) {
         this.right = right;
     }
+    
+    setValue(value) {
+        this.value = value;
+    }
 
     getValue() {
         return this.value;
@@ -53,14 +57,14 @@ class Tree {
                 node.setLeft(newNode);
                 newNode.setParent(node);
             } else {
-                this.insertHelper(node.left, newNode);
+                this.insertHelper(node.getLeft(), newNode);
             }
         } else {
             if (!node.getRight()) {
                 node.setRight(newNode);
                 newNode.setParent(node);
             } else {
-                this.insertHelper(node.right, newNode);
+                this.insertHelper(node.getRight(), newNode);
             }
         }
     }
@@ -87,7 +91,90 @@ class Tree {
         return false;
     }
 
+    delete(value)
+    {
+        this.deleteHelper(this.root, value);
+    }
 
+    deleteHelper(node, value)
+    {
+        if (node == null)
+            return node;
+        if (value < node.getValue())
+            node.setLeft(this.deleteHelper(node.getLeft(), value));
+        else if (value > node.getValue())
+            node.setRight(this.deleteHelper(node.getRight(), value));
+        else {
+            if (node.getLeft() == null)
+                return node.getRight();
+            else if (node.getRight() == null)
+                return node.getLeft();
+
+            node.setValue(this.minValue(node.getRight()));
+
+            node.setRight(this.deleteHelper(node.getRight(), node.getValue()));
+        }
+        return node;
+    }
+  
+    minValue(node)
+    {
+        let minv = node.value;
+            while (node.left != null)
+            {
+                minv = node.left.value;
+                node = node.left;
+            }
+            return minv;
+    }
+
+    change(value, newValue){
+        const node = new Node(newValue);
+
+        if (this.root == null) {
+            this.root = node;
+        } else {
+            this.changeHelper(this.root, value, node)
+        }
+    }
+
+    changeHelper(node, value, newValue){
+        if (node == null)
+            return node;
+            
+        if(newValue){
+            if (newValue.getValue() < node.getValue()) {
+                if (!node.getLeft()) {
+                    node.setLeft(newValue);
+                    newValue.setParent(node);
+                } else {
+                    this.changeHelper(node.getLeft(), value, newValue);
+                }
+            } else if(newValue.getValue() > node.getValue()) {
+                if (!node.getRight()) {
+                    node.setRight(newValue);
+                    newValue.setParent(node);
+                } else {
+                    this.changeHelper(node.getRight(), value, newValue);
+                }
+            }
+        }
+        if (value < node.getValue())
+            node.setLeft(this.changeHelper(node.getLeft(), value, null));
+        else if (value > node.getValue())
+            node.setRight(this.changeHelper(node.getRight(), value, null));
+        else {
+            if (node.getLeft() == null)
+                return node.getRight();
+            else if (node.getRight() == null)
+                return node.getLeft();
+
+            node.setValue(this.minValue(node.getRight()));
+
+            node.setRight(this.changeHelper(node.getRight(), node.getValue(), null));
+        }
+        return node;
+    }
 
     inOrder() {
         let arr = [];
@@ -141,35 +228,6 @@ class Tree {
         }
     }
 
-    // showDepth() {
-    //     return this.showDepthHelper(this.root);
-    // }
-
-    // showDepthHelper(node) {
-    //     if (node == null)
-    //         return 0;
-    //     else {
-    //         const lDepth = this.showDepth(node.getLeft());
-    //         const rDepth = this.showDepth(node.getRight());
-
-    //         if (lDepth > rDepth)
-    //             return (lDepth + 1);
-    //         else
-    //             return (rDepth + 1);
-    //     }
-    // }
-
-    // showNode() {
-    //     return this.showNodeHelper(this.root, "");
-    // }
-
-    // showNodeHelper(node, indent) {
-    //     if (node) {
-    //         console.log(indent + node.getValue());
-    //         this.showNodeHelper(node.getLeft(), indent+" ");
-    //         this.showNodeHelper(node.getRight(), indent+" ");
-    //     }
-    // }
 }
 
 const data = new Tree();
@@ -180,7 +238,8 @@ data.insert(6);
 data.insert(9);
 data.insert(7);
 data.insert(4);
-
+// data.delete(5);
+data.change(6, 30);
 //data.inOrder();
 //data.preOrder();
 //data.postOrder();
