@@ -65,6 +65,45 @@ class Tree {
         }   
     }
 
+    deleteValue(value)
+    {
+        this.deleteRec(this.root, value);
+    }
+
+    deleteRec(root,value)
+    {
+            if (root == null)
+                return root;
+    
+            if (value < root.value)
+                root.left = this.deleteRec(root.left, value);
+            else if (value > root.value)
+                root.right = this.deleteRec(root.right, value);
+            else {
+                if (root.left == null)
+                    return root.right;
+                else if (root.right == null)
+                    return root.left;
+    
+                root.value = this.minValue(root.right);
+    
+                root.right = this.deleteRec(root.right, root.value);
+            }
+    
+            return root;
+    }
+  
+    minValue(root)
+    {
+        let minv = root.value;
+            while (root.left != null)
+            {
+                minv = root.left.value;
+                root = root.left;
+            }
+            return minv;
+    }
+
     isExist(value, node = this.root) {
         if (node.getValue() == value) {
             return true;
@@ -110,52 +149,13 @@ class Tree {
         }
     }
 
-    height(root){
-        if (!root){
-            return 0
-        }
-        return Math.max(this.height(root.left), this.height(root.right))+1
-    }
-
-    getcol(h){
-        if (h == 1){
-            return 1
-        }
-        return this.getcol(h-1) + this.getcol(h-1) + 1
-    }
-
-    printTree(M, root, col, row, height){
-        if (!root){
-            return
-        }
-        // const substract (i) =>  
-        M[row][col] = root.getValue()
-        this.printTree(M, root.getLeft(), col-Math.pow(2, height-2), row+1, height-1)
-        this.printTree(M, root.getRight(), col+Math.pow(2, height-2), row+1, height-1)
-    }
-
-
-    TreePrinter(){
-        let data = ""
-        let h = this.height(this.root)
-        let col = this.getcol(h)
-        let M =  Array.from({length:h},_ => Array.from({length:col},_=> null))
-        
-        this.printTree(M, this.root, Math.floor(col/2, 1), 0, h)
-        // console.log(M)
-        M.map(i => {
-            i.map(j => {
-                if (j == null){
-                    data += "  "
-                }else{
-                    data += `${j} `
-                }
-            })
-            console.log(data);
-            data = '';
-        })
-    }
-
+    printTree(prefix, Node = this._root, isLeft = true) {
+        if (Node !== null) {
+             this.printTree(prefix + (isLeft ? "│   " : "    "), Node.getRight(), false);
+             console.log(prefix + (isLeft ? "└── " : "┌── ") + Node.getValue());
+             this.printTree(prefix + (isLeft ? "    " : "│   "), Node.getLeft(), true);
+         }
+     }
 }
 
 const data = new Tree();
@@ -168,8 +168,8 @@ data.insert(6);
 data.insert(9);
 data.insert(7);
 data.insert(4);
-console.log(data.TreePrinter());
-
+data.deleteValue(4);
+printTree(data, data, isLeft = true) 
 //console.log(data.isExist(650));
 
 //console.log(data);
