@@ -167,7 +167,7 @@ class Tree {
     //             uncle = uncle.getRight();
     //         }
     //         let grandParent = node.getParent().getParent();
-            
+
     //         if (uncle && uncle.checkIsRed()) {
     //             node.getParent().setBlack();
     //             uncle.setBlack();
@@ -482,7 +482,7 @@ data.insert(9);data.printTree();
 data.insert(23);data.printTree();
 data.insert(5);data.printTree();
 data.insert(20);data.printTree();
-data.remove(21);
+data.insert(24);
 
 data.printTree();
 
