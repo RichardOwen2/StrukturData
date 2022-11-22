@@ -82,6 +82,12 @@ class Tree {
     }
 
     insert(key, value) {
+        if (this.findNode(key) && key === this.findNode(key).getKey()) {
+            return;
+        }
+
+        key = key.toLowerCase();
+
         let current = this.root;
         let pointer = null;
         const node = createNode(key, value);
@@ -144,54 +150,16 @@ class Tree {
                 }
 
                 if (node === node.getParent().getLeft()) {
-                    // Double rotation needed
                     node = node.getParent();
                     this.rotateRight(node);
                 }
                 node.getParent().setBlack();
                 node.getParent().getParent().setRed();
-                // if the "else if" code hasn't executed, this
-                // is a case where we only need a single rotation
                 this.rotateLeft(node.getParent().getParent());
             }
         }
         this.root.setBlack();
     }
-
-    // fixTree(node) {
-    //     while(node.getParent() && node.getParent().checkIsRed()) {
-    //         let uncle = node.getParent().getParent()
-    //         if (uncle.getLeft()) {
-    //             uncle = uncle.getLeft();
-    //         } else {
-    //             uncle = uncle.getRight();
-    //         }
-    //         let grandParent = node.getParent().getParent();
-
-    //         if (uncle && uncle.checkIsRed()) {
-    //             node.getParent().setBlack();
-    //             uncle.setBlack();
-    //             grandParent.setRed();
-    //             node = grandParent;
-    //         } else {
-    //             if (node == node.getParent().getRight() && node.getParent() == grandParent.getLeft()) {
-    //                 this.rotateLeft(node.getParent());
-    //                 node = node.getLeft();
-    //             } else if (node = node.getParent().getLeft() && node.getParent() == grandParent.getLeft()) {
-    //                 this.rotateRight(node.getParent());
-    //                 node = node.getRight();
-    //             }
-    //             grandParent = node.getParent().getParent();
-    //             node.getParent().setBlack();
-    //             grandParent.setRed();
-    //             if (node == node.getParent().getLeft() && node.getParent() == grandParent.getLeft()) {
-    //                 this.rotateRight(grandParent);
-    //             } else {
-    //                 this.rotateLeft(grandParent);
-    //             }
-    //         }
-    //     }
-    // }
 
     rotateRight(node) {
         const current = node.getLeft();
@@ -249,6 +217,18 @@ class Tree {
     }
 
     remove(key) {
+        if (key === this.root.getKey()) {
+            let node = this.root;
+            let current = node.getLeft();
+            while (current.getRight() && !isNilNode(current.getRight())) {
+                current = current.getRight();
+            }
+            this.root.key = current.getKey();
+            this.root.value = current.getValue();
+            current.setParent(null);
+            node.getParent().setRight(createLeafNode(node));
+        }
+
         const node = this.findNode(key);
         if (node == null) {
             return;
@@ -279,7 +259,7 @@ class Tree {
             current.getLeft().setParent(current);
             current.setColor(node.checkIsRed());
         }
-        if (!currentOriginalColor) {
+        if (currentOriginalColor === false) {
             this.removeFix(pointer);
         }
     }
@@ -315,7 +295,7 @@ class Tree {
                     this.rotateLeft(node.getParent());
                     current = node.getParent().getRight();
                 }
-                if (!current.getLeft().checkIsRed() && !current.getRight().checkIsRed()) {
+                if (current.getLeft().checkIsRed() && !current.getRight().checkIsRed()) {
                     current.setRed();
                     node = node.getParent();
                     continue;
@@ -391,20 +371,37 @@ class Tree {
 }
 
 const data = new Tree();
-data.insert('hi'); data.printTree();
-data.insert('halo'); data.printTree();
-data.insert('Hi'); data.printTree();
-data.insert('Adios'); data.printTree();
-data.insert('Hai'); data.printTree();
-data.insert('holA'); data.printTree();
-data.insert('c'); data.printTree();
-data.insert('yo'); data.printTree();
-data.insert('wen'); data.printTree();
-data.insert('lan'); data.printTree();
-data.insert('heng'); data.printTree();
-
-data.remove('holA'); data.printTree();
-
-// console.log(data.isExist(650));
-
-//console.log(data);
+data.insert('hi',123); 
+data.printTree();
+data.insert('halo',123); 
+data.printTree();
+data.insert('Hi',123); 
+data.printTree();
+data.insert('Adios',123); 
+data.printTree();
+data.insert('Hai',123); 
+data.printTree();
+data.insert('holA',123); 
+data.printTree();
+data.insert('c',123); 
+data.printTree();
+data.insert('yo',123); 
+data.printTree();
+data.insert('wen',123); 
+data.printTree();
+data.insert('lan',123); 
+data.printTree();
+data.insert('heng',123); 
+data.printTree();
+data.insert('wow',123); 
+data.printTree();
+data.insert('xpender',123); 
+data.printTree();
+data.insert('hrt',123); 
+data.printTree();
+// data.insert('ftuky',123); 
+// data.printTree();
+// data.insert('sfd',123); 
+// data.printTree();
+// data.insert('wesfs',123); 
+// data.printTree();

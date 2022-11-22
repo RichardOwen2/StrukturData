@@ -175,7 +175,7 @@ class Tree {
     inOrder() {
         let arr = [];
         this.inOrderHelper(this.root, arr);
-        console.log(arr);
+        console.log(...arr);
     }
 
     inOrderHelper(node, arr) {
@@ -188,26 +188,30 @@ class Tree {
     }
 
     preOrder() {
-        return this.preOrderHelper(this.root);
+        let arr = [];
+        this.preOrderHelper(this.root, arr);
+        console.log(...arr);
     }
 
-    preOrderHelper(node) {
+    preOrderHelper(node, arr) {
         if (node) {
-            console.log(node.getValue());
-            this.preOrderHelper(node.getLeft());
-            this.preOrderHelper(node.getRight());
+            arr.push(node.getValue());
+            this.preOrderHelper(node.getLeft(), arr);
+            this.preOrderHelper(node.getRight(), arr);
         }
     }
 
     postOrder() {
-        return this.postOrderHelper(this.root);
+        let arr = [];
+        this.postOrderHelper(this.root, arr);
+        console.log(...arr);
     }
 
-    postOrderHelper(node) {
+    postOrderHelper(node, arr) {
         if (node) {
-            this.postOrderHelper(node.getLeft());
-            this.postOrderHelper(node.getRight());
-            console.log(node.getValue());
+            this.postOrderHelper(node.getLeft(), arr);
+            this.postOrderHelper(node.getRight(), arr);
+            arr.push(node.getValue());
         }
     }
 
@@ -236,9 +240,9 @@ data.insert(7);
 data.insert(4);
 // data.delete(5);
 data.change(6, 30);
-//data.inOrder();
-//data.preOrder();
-//data.postOrder();
+data.inOrder();
+data.preOrder();
+data.postOrder();
 data.printTree();
 
 //console.log(data.isExist(650));

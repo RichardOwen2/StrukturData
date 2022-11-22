@@ -482,9 +482,10 @@ data.insert(9);data.printTree();
 data.insert(23);data.printTree();
 data.insert(5);data.printTree();
 data.insert(20);data.printTree();
-data.insert(24);
-
-data.printTree();
+data.insert(24);data.printTree();
+data.insert(27);data.printTree();
+data.insert(5);data.printTree();
+data.insert(7);data.printTree();
 
 
 // console.log(data.isExist(650));
