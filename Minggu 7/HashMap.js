@@ -376,90 +376,8 @@ class Tree {
         return null;
     }
 
-    // getHeight(root) {
-    //     if (!root) {
-    //         return 0
-    //     }
-    //     return Math.max(this.getHeight(root.left), this.getHeight(root.right)) + 1
-    // }
-
-    // getColumn(h) {
-    //     if (h == 1) {
-    //         return 1
-    //     }
-    //     return this.getColumn(h - 1) + this.getColumn(h - 1) + 1
-    // }
-
-    // printTree(array, node, coloumn, row, height) {
-    //     if (!node || isNilNode(node)) {
-    //         return
-    //     }
-
-    //     const color = node.checkIsRed() ? "(R)" : "(B)";
-
-    //     if (isNilNode(node)) {
-    //         array[row][coloumn] = "N" + color;
-    //     } else {
-    //         array[row][coloumn] = node.getKey() + color;
-    //     }
-
-    //     this.printTree(array, node.getLeft(), coloumn - Math.pow(2, height - 2), row + 1, height - 1)
-    //     this.printTree(array, node.getRight(), coloumn + Math.pow(2, height - 2), row + 1, height - 1)
-    // }
-
-    // printArrow(array) {
-    //     let arrow = [];
-    //     for (let item of array) {
-    //         let data = [];
-    //         for (let i = 0; i < item.length; i++) {
-    //             if (item[i] != null) {
-    //                 data.push("/")
-    //                 data.push("\\")
-
-    //             } else {
-    //                 data.push(null);
-    //             }
-    //         }
-    //         arrow.push(data);
-    //     }
-
-    //     return arrow;
-    // }
-
-    // TreePrinter() {
-    //     let data = ""
-    //     let height = this.getHeight(this.root)
-    //     let column = this.getColumn(height)
-    //     let array = Array.from({ length: height }, _ => Array.from({ length: column }, _ => null))
-
-    //     this.printTree(array, this.root, Math.floor(column / 2, 1), 0, height)
-
-    //     const key = array;
-    //     const arrow = this.printArrow(array);
-    //     let treeData = [];
-
-    //     for (let i = 0; i < key.length; i++) {
-    //         treeData.push(key[i]);
-    //         treeData.push(arrow[i]);
-    //     }
-
-    //     console.log("--------------------------------------------------------");
-    //     for (let i of treeData) {
-    //         for (let j of i) {
-    //             if (j == null) {
-    //                 data += " "
-    //             } else {
-    //                 data += `${j} `
-    //             }
-    //         }
-    //         console.log(data);
-    //         data = "";
-    //     }
-    //     console.log("--------------------------------------------------------");
-    // }
-
     printTree() {
-        this.printTreeHelper("",this.root,true);
+        this.printTreeHelper("", this.root, true);
         console.log("--------------------------------------------------------------------------------------")
     }
 
@@ -473,19 +391,19 @@ class Tree {
 }
 
 const data = new Tree();
-data.insert(1);data.printTree();
-data.insert(12);data.printTree();
-data.insert(21);data.printTree();
-data.insert(3);data.printTree();
-data.insert(8);data.printTree();
-data.insert(9);data.printTree();
-data.insert(23);data.printTree();
-data.insert(5);data.printTree();
-data.insert(20);data.printTree();
-data.insert(24);
+data.insert('hi'); data.printTree();
+data.insert('halo'); data.printTree();
+data.insert('Hi'); data.printTree();
+data.insert('Adios'); data.printTree();
+data.insert('Hai'); data.printTree();
+data.insert('holA'); data.printTree();
+data.insert('c'); data.printTree();
+data.insert('yo'); data.printTree();
+data.insert('wen'); data.printTree();
+data.insert('lan'); data.printTree();
+data.insert('heng'); data.printTree();
 
-data.printTree();
-
+data.remove('holA'); data.printTree();
 
 // console.log(data.isExist(650));
 

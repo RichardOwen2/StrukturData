@@ -14,7 +14,7 @@ class Node {
     setRight(right) {
         this.right = right;
     }
-    
+
     setValue(value) {
         this.value = value;
     }
@@ -91,13 +91,11 @@ class Tree {
         return false;
     }
 
-    delete(value)
-    {
+    delete(value) {
         this.deleteHelper(this.root, value);
     }
 
-    deleteHelper(node, value)
-    {
+    deleteHelper(node, value) {
         if (node == null)
             return node;
         if (value < node.getValue())
@@ -116,19 +114,17 @@ class Tree {
         }
         return node;
     }
-  
-    minValue(node)
-    {
+
+    minValue(node) {
         let minv = node.value;
-            while (node.left != null)
-            {
-                minv = node.left.value;
-                node = node.left;
-            }
-            return minv;
+        while (node.left != null) {
+            minv = node.left.value;
+            node = node.left;
+        }
+        return minv;
     }
 
-    change(value, newValue){
+    change(value, newValue) {
         const node = new Node(newValue);
 
         if (this.root == null) {
@@ -138,11 +134,11 @@ class Tree {
         }
     }
 
-    changeHelper(node, value, newValue){
+    changeHelper(node, value, newValue) {
         if (node == null)
             return node;
-            
-        if(newValue){
+
+        if (newValue) {
             if (newValue.getValue() < node.getValue()) {
                 if (!node.getLeft()) {
                     node.setLeft(newValue);
@@ -150,7 +146,7 @@ class Tree {
                 } else {
                     this.changeHelper(node.getLeft(), value, newValue);
                 }
-            } else if(newValue.getValue() > node.getValue()) {
+            } else if (newValue.getValue() > node.getValue()) {
                 if (!node.getRight()) {
                     node.setRight(newValue);
                     newValue.setParent(node);
@@ -216,7 +212,7 @@ class Tree {
     }
 
     printTree() {
-        this.printTreeHelper("",this.root,true);
+        this.printTreeHelper("", this.root, true);
         console.log("--------------------------------------------------------------------------------------")
     }
 
