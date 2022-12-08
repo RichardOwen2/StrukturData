@@ -237,12 +237,17 @@ data.insert(3);
 data.insert(6);
 data.insert(9);
 data.insert(7);
-data.insert(4);
-// data.delete(5);
+
+data.printTree();
+
+data.delete(5);
+
+data.printTree();
+
 data.change(6, 30);
-data.inOrder();
-data.preOrder();
-data.postOrder();
+// data.inOrder();
+// data.preOrder();
+// data.postOrder();
 data.printTree();
 
 //console.log(data.isExist(650));

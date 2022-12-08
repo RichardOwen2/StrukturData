@@ -405,3 +405,5 @@ data.printTree();
 // data.printTree();
 // data.insert('wesfs',123); 
 // data.printTree();
+
+console.log(data)

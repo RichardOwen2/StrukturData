@@ -473,19 +473,22 @@ class Tree {
 }
 
 const data = new Tree();
-data.insert(1);data.printTree();
-data.insert(12);data.printTree();
-data.insert(21);data.printTree();
+data.insert(-10);data.printTree();
+data.insert(5);data.printTree();
+data.insert(-8);data.printTree();
+data.insert(4);data.printTree();
+data.insert(-7);data.printTree();
 data.insert(3);data.printTree();
-data.insert(8);data.printTree();
-data.insert(9);data.printTree();
-data.insert(23);data.printTree();
-data.insert(5);data.printTree();
 data.insert(20);data.printTree();
-data.insert(24);data.printTree();
-data.insert(27);data.printTree();
-data.insert(5);data.printTree();
-data.insert(7);data.printTree();
+data.insert(2);data.printTree();
+// data.insert(23);data.printTree();
+// data.insert(60);data.printTree();
+// data.insert(20);data.printTree();
+// data.insert(-1);data.printTree();
+// data.insert(1);data.printTree();
+// data.insert(18);data.printTree();
+// data.insert(0);data.printTree();
+// data.insert(11);data.printTree();
 
 
 // console.log(data.isExist(650));
